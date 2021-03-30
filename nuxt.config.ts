@@ -25,9 +25,10 @@ export default defineNuxtConfig({
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    // '@/plugins/axios',
     '@/plugins/element-ui',
     '@/plugins/repository',
-    { src: '@/plugins/error-handler', ssr: false },
+    // { src: '@/plugins/error-handler', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -70,21 +71,21 @@ export default defineNuxtConfig({
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    proxy: true,
+    // proxy: true,
     // retry: { retries: 2 },
-    // baseURL: process.env.BASE_URL
-    baseURL: 'https://conduit.productionready.io/api/',
+    baseURL: process.env.BASE_URL,
   },
 
-  // proxy: {
-  //   '/api': {
-  //     changeOrigin: true,
-  //     target: process.env.API_URL,
-  //     pathRewrite: {
-  //       '^/api': '/v0'
-  //     }
-  //   }
-  // },
+  proxy: {
+    '/api': {
+      changeOrigin: true,
+      target: process.env.API_URL,
+      pathRewrite: {
+        '^/api': '/',
+        changeOrigin: true,
+      },
+    },
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
@@ -98,7 +99,10 @@ export default defineNuxtConfig({
       plugins: [
         [
           'component',
-          { libraryName: 'element-ui', styleLibraryName: 'theme-chalk' },
+          {
+            libraryName: 'element-ui',
+            styleLibraryName: 'theme-chalk',
+          },
         ],
       ],
     },

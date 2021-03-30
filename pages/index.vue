@@ -1,25 +1,7 @@
 <template>
   <div class="container">
-    <div>
-      <h1 class="title">vue-ssr-element-template</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+    <div class="layout">
+      {{ isLogin }}
     </div>
   </div>
 </template>
@@ -32,35 +14,17 @@ import {
   // useAsync,
   // useFetch,
 } from '@nuxtjs/composition-api'
+import { useUser } from '@/compositions'
 
 export default defineComponent({
   name: 'IndexPage',
-  // serverCacheKey: () => 'IndexPage',
-  // setup() {
-  //   const { $axios } = useContext()
-  //   /** SSR API fetch */
-  //   const responseAsync = useAsync(async () => {
-  //     return await $axios.$get(
-  //       'https://pokeapi.co/api/v2/pokemon?limit=100&offset=200'
-  //     )
-  //   })
-  //   /** CSR API fetch */
-  //   const responseFetch = ref()
-  //   useFetch(async () => {
-  //     const data = await $axios.$get(
-  //       'https://pokeapi.co/api/v2/pokemon?limit=100&offset=200'
-  //     )
-  //     responseFetch.value = data
-  //   })
-
-  //   console.log(`responseAsync`, responseAsync)
-  //   console.log(`responseFetch`, responseFetch)
-
-  //   return {
-  //     responseAsync,
-  //     responseFetch,
-  //   }
-  // },
+  serverCacheKey: () => Math.floor(Date.now() / 1000),
+  setup() {
+    const { isLogin } = useUser()
+    return {
+      isLogin,
+    }
+  },
 })
 </script>
 

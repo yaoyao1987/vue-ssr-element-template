@@ -1,7 +1,7 @@
 # vue-ssr-element-template
 
 参考文章：
-[vivo 商城架构升级-SSR 实战篇](https://juejin.cn/post/6908883342034632712)
+[vivo 商城架构升级-SSR 实战篇](https://juejin.cn/post/6908883342034632712)  
 [next-realworld](https://github.com/devJang/nuxt-realworld.git)
 
 ## 项目目录说明
@@ -72,19 +72,14 @@ yarn add babel-plugin-component -D
 plugins/element-ui.ts
 
 ```ts
+
 import Vue from 'vue'
 import {
-  Input,
-  Select,
-  Option,
   Button,
   Notification,
-  Message
+  Message,
 } from 'element-ui'
 
-Vue.use(Input)
-Vue.use(Select)
-Vue.use(Option)
 Vue.use(Button)
 
 Vue.prototype.$message = Message
@@ -105,6 +100,10 @@ babel: {
 ```
 
 ## 项目优化
+
+### DNS预解析
+
+如果页面中有其他域名，则可设置预解析
 
 ### 缓存
 
@@ -280,3 +279,21 @@ EXPOSE 3000
 CMD npm start
 
 ```
+
+### 尝试使用命令压测
+
+```sh
+ab [option] [http://]host[:port]/path
+```
+
+-n 指定压力测试总共访问页面的次数
+-c 用于一次产生的请求的并发数
+-s 每个响应的最长时间
+-r 指定接收到错误信息时不退出程序
+
+```sh
+ab -n 4000 -c 50 -s 120 -r http://localhost:3000/
+```
+
+![不加缓存](./docs/ssr.png)
+![加缓存](./docs/ssr&cache.png)

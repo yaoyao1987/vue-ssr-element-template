@@ -28,7 +28,7 @@
 <script>
 export default {
   name: 'Error',
-  serverCacheKey: () => 'Error',
+  serverCacheKey: () => Math.floor(Date.now() / 1000) + 'Error',
   props: {
     error: {
       type: Object,
